@@ -1,0 +1,2620 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>悦己时光 · 为自己活，最美丽</title>
+    
+    <!-- DNS 预解析和预连接 - 优化 Google Fonts 加载 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <style>
+        /* ============================================================
+           悦己时光 · 创意升级版
+           "从为孩子活，到为自己活"
+           ============================================================ */
+
+        /* -------- 字体 -------- */
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;400;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap');
+
+        /* -------- 重置与基础 -------- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            /* 主色调 —— 像旧书页与干花的颜色 */
+            --paper: #F8F4EE;
+            --paper-dark: #EDE7DD;
+            --ink: #5D5347;
+            --ink-light: #8B7E72;
+            --rose: #D4A5A5;
+            --rose-light: #E8C8C8;
+            --rose-deep: #B87A7A;
+            --gold: #C9A96E;
+            --gold-light: #E8D5A8;
+            --mint: #A8C5B5;
+            --mint-light: #C8DDD0;
+            --lavender: #C4B5D4;
+            --cream: #FFF8F0;
+            --white: #FFFCF9;
+            --shadow: rgba(93, 83, 71, 0.08);
+            --shadow-hover: rgba(93, 83, 71, 0.15);
+
+            --serif: 'Noto Serif SC', 'Source Han Serif SC', 'STSong', 'SimSun', serif;
+            --sans: 'Noto Sans SC', 'Source Han Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+
+            --transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+            --transition-fast: all 0.3s ease;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+
+        body {
+            font-family: var(--sans);
+            color: var(--ink);
+            background: var(--paper);
+            line-height: 1.9;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* 滚动条美化 */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: var(--paper); }
+        ::-webkit-scrollbar-thumb { background: var(--rose-light); border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--rose); }
+
+        /* 侧边导航 */
+        .nav-side {
+            position: fixed;
+            left: 2rem;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            padding: 2rem 0.5rem;
+        }
+
+        .nav-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--paper-dark);
+            border: 2px solid var(--rose-light);
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .nav-dot:hover,
+        .nav-dot.active {
+            background: var(--rose);
+            border-color: var(--rose-deep);
+            transform: scale(1.3);
+        }
+
+        .nav-dot::after {
+            content: attr(data-label);
+            position: absolute;
+            left: 24px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-family: var(--serif);
+            font-size: 0.8rem;
+            color: var(--ink-light);
+            white-space: nowrap;
+            opacity: 0;
+            transition: var(--transition-fast);
+        }
+
+        .nav-dot:hover::after {
+            opacity: 1;
+        }
+
+        .nav-line {
+            width: 1px;
+            height: 40px;
+            background: linear-gradient(to bottom, var(--rose-light), transparent);
+            margin: 0 auto;
+        }
+
+        /* Hero 章节 */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(180deg, var(--cream) 0%, var(--paper) 40%, var(--paper) 100%);
+            padding: 2rem;
+        }
+
+        /* 粒子画布 */
+        .hero-particles {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            max-width: 700px;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: heroEntrance 1.5s ease forwards;
+        }
+
+        @keyframes heroEntrance {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hero-kicker {
+            font-family: var(--serif);
+            font-size: 0.9rem;
+            color: var(--rose);
+            letter-spacing: 0.3em;
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+        }
+
+        .hero-title {
+            font-family: var(--serif);
+            font-size: clamp(2.8rem, 6vw, 4.5rem);
+            font-weight: 300;
+            color: var(--ink);
+            line-height: 1.3;
+            margin-bottom: 0.5rem;
+        }
+
+        .hero-title .highlight {
+            display: block;
+            font-weight: 600;
+            color: var(--rose-deep);
+            font-size: 1.1em;
+            background: linear-gradient(135deg, var(--rose-deep), var(--rose));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-family: var(--serif);
+            font-size: 1.2rem;
+            color: var(--ink-light);
+            margin: 1.5rem 0 2.5rem;
+            line-height: 2;
+            font-weight: 300;
+        }
+
+        .hero-subtitle em {
+            font-style: normal;
+            color: var(--rose-deep);
+        }
+
+        .hero-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.8rem;
+            padding: 1rem 2.5rem;
+            background: linear-gradient(135deg, var(--rose), var(--rose-deep));
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-family: var(--sans);
+            font-size: 1rem;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 8px 24px rgba(180, 122, 122, 0.25);
+            text-decoration: none;
+        }
+
+        .hero-btn:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 12px 32px rgba(180, 122, 122, 0.35);
+        }
+
+        .hero-btn .arrow {
+            display: inline-block;
+            transition: transform 0.3s ease;
+        }
+
+        .hero-btn:hover .arrow {
+            transform: translateX(4px);
+        }
+
+        /* 花朵装饰 */
+        .hero-flower {
+            position: absolute;
+            font-size: 2rem;
+            opacity: 0.15;
+            animation: flowerDrift 20s ease-in-out infinite;
+        }
+
+        .hero-flower:nth-child(1) { top: 5%; left: 5%; animation-delay: 0s; font-size: 3rem; }
+        .hero-flower:nth-child(2) { top: 15%; right: 8%; animation-delay: -5s; font-size: 2.5rem; }
+        .hero-flower:nth-child(3) { bottom: 20%; left: 10%; animation-delay: -10s; font-size: 2rem; }
+        .hero-flower:nth-child(4) { bottom: 10%; right: 5%; animation-delay: -15s; font-size: 3.5rem; }
+
+        @keyframes flowerDrift {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); opacity: 0.15; }
+            25% { transform: translate(20px, -30px) rotate(5deg); opacity: 0.25; }
+            50% { transform: translate(-10px, -50px) rotate(-3deg); opacity: 0.1; }
+            75% { transform: translate(15px, -20px) rotate(4deg); opacity: 0.2; }
+        }
+
+        /* 向下提示 */
+        .scroll-hint {
+            position: absolute;
+            bottom: 3rem;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--ink-light);
+            font-size: 0.8rem;
+            font-family: var(--serif);
+            opacity: 0.5;
+            animation: scrollHint 2s ease-in-out infinite;
+            cursor: pointer;
+        }
+
+        @keyframes scrollHint {
+            0%, 100% { transform: translateX(-50%) translateY(0); opacity: 0.5; }
+            50% { transform: translateX(-50%) translateY(8px); opacity: 0.8; }
+        }
+
+        .scroll-hint-line {
+            width: 1px;
+            height: 30px;
+            background: linear-gradient(to bottom, var(--ink-light), transparent);
+        }
+
+        /* 通用章节样式 */
+        .section {
+            padding: 6rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+            position: relative;
+        }
+
+        .section-number {
+            font-family: var(--serif);
+            font-size: 6rem;
+            font-weight: 300;
+            color: var(--rose-light);
+            opacity: 0.4;
+            display: block;
+            line-height: 1;
+            margin-bottom: -1rem;
+        }
+
+        .section-title {
+            font-family: var(--serif);
+            font-size: clamp(2rem, 4vw, 2.8rem);
+            font-weight: 300;
+            color: var(--ink);
+            margin-bottom: 0.8rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 40px;
+            height: 2px;
+            background: var(--rose);
+            margin: 1rem auto 0;
+        }
+
+        .section-subtitle {
+            font-size: 1rem;
+            color: var(--ink-light);
+            line-height: 1.8;
+            max-width: 600px;
+            margin: 1.2rem auto 0;
+            font-weight: 300;
+        }
+
+        .section-divider {
+            width: 80px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--rose-light), transparent);
+            margin: 3rem auto;
+        }
+
+        /* 每日心语（新功能） */
+        .daily-card-section {
+            background: linear-gradient(180deg, var(--cream), var(--paper));
+            padding: 8rem 2rem 6rem;
+        }
+
+        .daily-card-section .section {
+            padding: 0;
+            max-width: 700px;
+        }
+
+        .daily-card {
+            background: var(--white);
+            border-radius: 24px;
+            padding: 3rem;
+            box-shadow: 0 8px 40px var(--shadow);
+            text-align: center;
+            position: relative;
+            border: 1px solid var(--paper-dark);
+        }
+
+        .daily-card::before {
+            content: '❝';
+            position: absolute;
+            top: 1.5rem;
+            left: 2rem;
+            font-size: 3rem;
+            color: var(--rose-light);
+            font-family: var(--serif);
+            opacity: 0.5;
+            line-height: 1;
+        }
+
+        .daily-card::after {
+            content: '❞';
+            position: absolute;
+            bottom: 1.5rem;
+            right: 2rem;
+            font-size: 3rem;
+            color: var(--rose-light);
+            font-family: var(--serif);
+            opacity: 0.5;
+            line-height: 1;
+        }
+
+        .daily-label {
+            font-family: var(--serif);
+            font-size: 0.85rem;
+            color: var(--rose);
+            letter-spacing: 0.2em;
+            margin-bottom: 1.5rem;
+        }
+
+        .daily-quote {
+            font-family: var(--serif);
+            font-size: 1.5rem;
+            line-height: 1.8;
+            color: var(--ink);
+            margin-bottom: 1.5rem;
+            min-height: 4rem;
+            transition: var(--transition-fast);
+        }
+
+        .daily-quote.fade {
+            opacity: 0;
+            transform: translateY(10px);
+        }
+
+        .daily-author {
+            font-size: 0.9rem;
+            color: var(--rose-deep);
+            font-family: var(--serif);
+            font-style: italic;
+        }
+
+        .daily-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 1.5rem;
+            padding: 0.6rem 1.8rem;
+            background: var(--paper);
+            border: 1px solid var(--rose-light);
+            border-radius: 50px;
+            color: var(--ink-light);
+            font-family: var(--sans);
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: var(--transition-fast);
+        }
+
+        .daily-btn:hover {
+            background: var(--rose-light);
+            border-color: var(--rose);
+            color: var(--ink);
+        }
+
+        /* 功能区一：放下牵挂（升级版） */
+        .healing-wrapper {
+            background: var(--white);
+            border-radius: 32px;
+            padding: 4rem;
+            box-shadow: 0 8px 40px var(--shadow);
+            border: 1px solid var(--paper-dark);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .healing-wrapper::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--rose-light), var(--rose), var(--rose-light));
+        }
+
+        .healing-flowers {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            font-size: 2rem;
+            animation: gentleSway 4s ease-in-out infinite;
+        }
+
+        @keyframes gentleSway {
+            0%, 100% { transform: translateX(0); }
+            50% { transform: translateX(5px); }
+        }
+
+        .tree-hole-container {
+            max-width: 560px;
+            margin: 0 auto;
+        }
+
+        .tree-hole-prompt {
+            font-family: var(--serif);
+            font-size: 1.3rem;
+            color: var(--ink);
+            margin-bottom: 2rem;
+            text-align: center;
+            line-height: 1.8;
+            font-weight: 300;
+        }
+
+        .tree-hole-prompt span {
+            display: block;
+            font-size: 0.9rem;
+            color: var(--ink-light);
+            margin-top: 0.5rem;
+        }
+
+        .worry-input {
+            width: 100%;
+            min-height: 180px;
+            padding: 1.5rem;
+            border: 2px solid var(--rose-light);
+            border-radius: 20px;
+            font-family: var(--sans);
+            font-size: 1rem;
+            line-height: 1.8;
+            resize: vertical;
+            transition: var(--transition);
+            background: var(--cream);
+            color: var(--ink);
+        }
+
+        .worry-input:focus {
+            outline: none;
+            border-color: var(--rose);
+            background: var(--white);
+            box-shadow: 0 0 0 6px rgba(212, 165, 165, 0.15);
+        }
+
+        .worry-input::placeholder {
+            color: var(--ink-light);
+            opacity: 0.4;
+            font-style: italic;
+        }
+
+        .release-wrapper {
+            display: flex;
+            justify-content: center;
+            margin-top: 1.5rem;
+        }
+
+        .release-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.8rem;
+            padding: 1rem 3rem;
+            background: linear-gradient(135deg, var(--rose), var(--rose-deep));
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-family: var(--sans);
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 6px 20px rgba(180, 122, 122, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .release-button::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.6s ease, height 0.6s ease;
+        }
+
+        .release-button:active::after {
+            width: 300px;
+            height: 300px;
+        }
+
+        .release-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(180, 122, 122, 0.3);
+        }
+
+        .release-button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* 纸船动画 */
+        .paper-boat {
+            text-align: center;
+            font-size: 3rem;
+            margin: 1.5rem 0;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.8s ease;
+        }
+
+        .paper-boat.sail {
+            opacity: 1;
+            transform: translateY(-30px) translateX(30px) rotate(5deg);
+        }
+
+        /* 温暖回应卡片 */
+        .warm-response {
+            margin-top: 2rem;
+            padding: 2rem;
+            background: linear-gradient(135deg, var(--cream), var(--paper));
+            border-radius: 20px;
+            border-left: 4px solid var(--rose);
+            display: none;
+            animation: responseEnter 0.6s ease;
+        }
+
+        .warm-response.show {
+            display: block;
+        }
+
+        @keyframes responseEnter {
+            from {
+                opacity: 0;
+                transform: translateY(20px) scale(0.98);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .response-text {
+            font-family: var(--serif);
+            font-size: 1.15rem;
+            color: var(--ink);
+            line-height: 1.9;
+            font-weight: 300;
+        }
+
+        .response-author {
+            text-align: right;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            color: var(--rose-deep);
+        }
+
+        /* 回应花朵粒子 */
+        .response-petals {
+            text-align: center;
+            font-size: 1.5rem;
+            margin-top: 1rem;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .response-petals.show {
+            opacity: 1;
+        }
+
+        /* 功能区二：重塑自我（升级版） */
+        .planning-wrapper {
+            background: var(--white);
+            border-radius: 32px;
+            padding: 4rem;
+            box-shadow: 0 8px 40px var(--shadow);
+            border: 1px solid var(--paper-dark);
+        }
+
+        .planning-intro {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding: 2rem;
+            background: linear-gradient(135deg, var(--cream), var(--paper));
+            border-radius: 20px;
+        }
+
+        .planning-intro-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .planning-intro-text {
+            font-family: var(--serif);
+            font-size: 1.1rem;
+            color: var(--ink-light);
+            font-weight: 300;
+        }
+
+        .planning-steps {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .step {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .step.active {
+            display: block;
+        }
+
+        .step-title {
+            font-family: var(--serif);
+            font-size: 1.4rem;
+            color: var(--ink);
+            margin-bottom: 2rem;
+            text-align: center;
+            font-weight: 400;
+        }
+
+        .options-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .option-card {
+            padding: 2rem 1.5rem;
+            border: 2px solid var(--rose-light);
+            border-radius: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+            background: var(--cream);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .option-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(135deg, var(--rose), var(--rose-deep));
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .option-card:hover {
+            border-color: var(--rose);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px var(--shadow-hover);
+        }
+
+        .option-card.selected {
+            border-color: var(--rose-deep);
+            background: white;
+            box-shadow: 0 4px 16px rgba(180, 122, 122, 0.2);
+        }
+
+        .option-card.selected::before {
+            opacity: 0.05;
+        }
+
+        .option-emoji {
+            font-size: 2.5rem;
+            display: block;
+            margin-bottom: 0.8rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .option-text {
+            font-size: 0.95rem;
+            line-height: 1.5;
+            color: var(--ink);
+            position: relative;
+            z-index: 1;
+        }
+
+        .option-desc {
+            font-size: 0.8rem;
+            color: var(--ink-light);
+            margin-top: 0.3rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .step-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+
+        .step-button {
+            padding: 0.8rem 2.5rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-family: var(--sans);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .step-button.primary {
+            background: linear-gradient(135deg, var(--rose), var(--rose-deep));
+            color: white;
+            box-shadow: 0 4px 16px rgba(180, 122, 122, 0.2);
+        }
+
+        .step-button.primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(180, 122, 122, 0.3);
+        }
+
+        .step-button.secondary {
+            background: var(--cream);
+            color: var(--ink);
+            border: 2px solid var(--rose-light);
+        }
+
+        .step-button.secondary:hover {
+            border-color: var(--rose);
+            background: white;
+        }
+
+        /* 生活指南结果 */
+        .guide-result {
+            display: none;
+            margin-top: 2rem;
+            animation: guideReveal 0.8s ease;
+        }
+
+        .guide-result.show {
+            display: block;
+        }
+
+        @keyframes guideReveal {
+            from {
+                opacity: 0;
+                transform: translateY(30px) scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .guide-card {
+            background: linear-gradient(135deg, var(--cream), var(--paper));
+            border-radius: 24px;
+            padding: 3rem;
+            border: 2px solid var(--rose-light);
+            position: relative;
+        }
+
+        .guide-card::before {
+            content: '🌟';
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 2rem;
+        }
+
+        .guide-title {
+            font-family: var(--serif);
+            font-size: 1.6rem;
+            color: var(--rose-deep);
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .guide-content {
+            line-height: 2;
+        }
+
+        .guide-item {
+            padding: 1rem 1.5rem;
+            background: var(--white);
+            border-radius: 12px;
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            transition: var(--transition-fast);
+        }
+
+        .guide-item:hover {
+            transform: translateX(6px);
+            box-shadow: 0 4px 12px var(--shadow);
+        }
+
+        .guide-item-number {
+            width: 28px;
+            height: 28px;
+            background: linear-gradient(135deg, var(--rose), var(--rose-deep));
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            flex-shrink: 0;
+        }
+
+        .guide-item-text {
+            font-size: 0.95rem;
+            color: var(--ink);
+        }
+
+        .guide-reset {
+            display: block;
+            margin: 2rem auto 0;
+            padding: 0.6rem 2rem;
+            background: transparent;
+            border: 1px solid var(--rose-light);
+            border-radius: 50px;
+            color: var(--ink-light);
+            font-family: var(--sans);
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: var(--transition-fast);
+        }
+
+        .guide-reset:hover {
+            background: var(--rose-light);
+            border-color: var(--rose);
+        }
+
+        /* 功能区三：闪耀人生（升级版） */
+        .inspiration-wrapper {
+            position: relative;
+        }
+
+        .stories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+
+        .story-card {
+            background: var(--white);
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px var(--shadow);
+            transition: var(--transition);
+            border: 1px solid var(--paper-dark);
+        }
+
+        .story-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 16px 48px var(--shadow-hover);
+        }
+
+        .story-banner {
+            height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .story-banner::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            height: 40px;
+            background: linear-gradient(to top, var(--white), transparent);
+        }
+
+        .story-banner-1 { background: linear-gradient(135deg, var(--rose-light), var(--cream)); }
+        .story-banner-2 { background: linear-gradient(135deg, var(--mint-light), var(--cream)); }
+        .story-banner-3 { background: linear-gradient(135deg, var(--lavender), var(--cream)); }
+
+        .story-body {
+            padding: 1.5rem 2rem 2rem;
+        }
+
+        .story-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .story-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            background: var(--cream);
+            border: 2px solid var(--rose-light);
+        }
+
+        .story-name {
+            font-family: var(--serif);
+            font-size: 1.1rem;
+            color: var(--ink);
+        }
+
+        .story-tag {
+            display: inline-block;
+            font-size: 0.75rem;
+            padding: 0.15rem 0.8rem;
+            background: var(--rose-light);
+            border-radius: 50px;
+            color: var(--rose-deep);
+            margin-top: 0.2rem;
+        }
+
+        .story-content {
+            line-height: 1.8;
+            color: var(--ink-light);
+            font-size: 0.95rem;
+        }
+
+        .story-quote {
+            margin-top: 1rem;
+            padding: 1rem 1.2rem;
+            background: var(--cream);
+            border-radius: 12px;
+            border-left: 3px solid var(--rose);
+            font-family: var(--serif);
+            font-size: 0.9rem;
+            color: var(--rose-deep);
+            font-style: italic;
+        }
+
+        /* 新功能：时光信箱 */
+        .time-capsule-wrapper {
+            background: linear-gradient(135deg, var(--cream), var(--paper));
+            border-radius: 32px;
+            padding: 4rem;
+            box-shadow: 0 8px 40px var(--shadow);
+            border: 1px solid var(--paper-dark);
+            text-align: center;
+        }
+
+        .capsule-icon {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            animation: gentleFloat 3s ease-in-out infinite;
+        }
+
+        @keyframes gentleFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .capsule-prompt {
+            font-family: var(--serif);
+            font-size: 1.2rem;
+            color: var(--ink);
+            line-height: 1.8;
+            margin-bottom: 2rem;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .capsule-input {
+            width: 100%;
+            max-width: 500px;
+            min-height: 150px;
+            padding: 1.5rem;
+            border: 2px solid var(--gold-light);
+            border-radius: 20px;
+            font-family: var(--sans);
+            font-size: 1rem;
+            line-height: 1.8;
+            resize: vertical;
+            transition: var(--transition);
+            background: var(--white);
+            color: var(--ink);
+            margin: 0 auto;
+            display: block;
+        }
+
+        .capsule-input:focus {
+            outline: none;
+            border-color: var(--gold);
+            box-shadow: 0 0 0 6px rgba(201, 169, 110, 0.15);
+        }
+
+        .capsule-input::placeholder {
+            color: var(--ink-light);
+            opacity: 0.4;
+            font-style: italic;
+        }
+
+        .capsule-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.8rem;
+            margin-top: 1.5rem;
+            padding: 1rem 3rem;
+            background: linear-gradient(135deg, var(--gold-light), var(--gold));
+            color: var(--ink);
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-family: var(--sans);
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 6px 20px rgba(201, 169, 110, 0.3);
+        }
+
+        .capsule-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(201, 169, 110, 0.4);
+        }
+
+        .capsule-response {
+            display: none;
+            margin-top: 2rem;
+            padding: 2rem;
+            background: var(--white);
+            border-radius: 20px;
+            border: 1px solid var(--gold-light);
+            animation: responseEnter 0.6s ease;
+        }
+
+        .capsule-response.show {
+            display: block;
+        }
+
+        /* 页脚 */
+        .footer {
+            text-align: center;
+            padding: 5rem 2rem 3rem;
+            margin-top: 3rem;
+            position: relative;
+        }
+
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--rose-light), transparent);
+        }
+
+        .footer-title {
+            font-family: var(--serif);
+            font-size: 1.5rem;
+            color: var(--rose-deep);
+            margin-bottom: 1rem;
+        }
+
+        .footer-quotes {
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .footer-quote {
+            font-size: 0.95rem;
+            color: var(--ink-light);
+            font-style: italic;
+            line-height: 1.8;
+            padding: 0.5rem 0;
+        }
+
+        .footer-quote .highlight-text {
+            color: var(--rose-deep);
+            font-style: normal;
+        }
+
+        .footer-decoration {
+            margin-top: 2rem;
+            font-size: 1.2rem;
+            letter-spacing: 0.5em;
+            opacity: 0.3;
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 1024px) {
+            .nav-side { display: none; }
+        }
+
+        @media (max-width: 768px) {
+            .hero { min-height: 90vh; padding: 1.5rem; }
+            .hero-kicker { font-size: 0.8rem; }
+            .hero-subtitle { font-size: 1rem; }
+            .hero-btn { padding: 0.8rem 2rem; font-size: 0.95rem; }
+
+            .section { padding: 4rem 1.2rem; }
+            .section-number { font-size: 4rem; }
+
+            .healing-wrapper,
+            .planning-wrapper,
+            .time-capsule-wrapper {
+                padding: 2rem 1.2rem;
+                border-radius: 24px;
+            }
+
+            .daily-card { padding: 2rem 1.5rem; }
+            .daily-quote { font-size: 1.2rem; }
+
+            .options-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0.8rem;
+            }
+
+            .option-card { padding: 1.5rem 1rem; }
+            .option-emoji { font-size: 2rem; }
+
+            .stories-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .guide-card { padding: 2rem 1.2rem; }
+            .guide-item { padding: 0.8rem 1rem; }
+        }
+
+        @media (max-width: 480px) {
+            .options-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .step-buttons {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .step-button {
+                text-align: center;
+            }
+        }
+
+        /* 工具类动画 */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes gentlePulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.03); }
+        }
+
+        .pulse-soft {
+            animation: gentlePulse 3s ease-in-out infinite;
+        }
+
+        /* -------- 语言切换按钮 -------- */
+        .lang-switch {
+            position: fixed;
+            top: 1.5rem;
+            right: 2rem;
+            z-index: 1000;
+            display: flex;
+            gap: 0.5rem;
+            background: var(--white);
+            padding: 0.4rem;
+            border-radius: 50px;
+            box-shadow: 0 4px 16px var(--shadow);
+            border: 1px solid var(--paper-dark);
+        }
+
+        .lang-btn {
+            padding: 0.5rem 1.2rem;
+            border: none;
+            border-radius: 50px;
+            font-family: var(--sans);
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: var(--transition-fast);
+            background: transparent;
+            color: var(--ink-light);
+        }
+
+        .lang-btn.active {
+            background: linear-gradient(135deg, var(--rose), var(--rose-deep));
+            color: white;
+            box-shadow: 0 2px 8px rgba(180, 122, 122, 0.3);
+        }
+
+        .lang-btn:hover:not(.active) {
+            background: var(--paper);
+        }
+
+        /* -------- 母亲节优惠区域 -------- */
+        .mothers-day-section {
+            background: linear-gradient(180deg, var(--cream) 0%, var(--paper) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .mothers-day-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--rose-light), var(--rose), var(--gold), var(--rose), var(--rose-light));
+        }
+
+        .city-carousel {
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .city-card {
+            background: var(--white);
+            border-radius: 24px;
+            padding: 3rem;
+            box-shadow: 0 8px 40px var(--shadow);
+            border: 2px solid var(--rose-light);
+            display: none;
+            animation: cityFadeIn 0.6s ease;
+            position: relative;
+            overflow: hidden;
+            word-break: break-word;
+            overflow-wrap: break-word;
+        }
+
+        .city-card.active {
+            display: block;
+        }
+
+        @keyframes cityFadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .city-card::before {
+            content: '🌹';
+            position: absolute;
+            top: 1rem;
+            right: 1.5rem;
+            font-size: 3rem;
+            opacity: 0.15;
+        }
+
+        .city-name {
+            font-family: var(--serif);
+            font-size: 2rem;
+            color: var(--rose-deep);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .city-emoji {
+            font-size: 2.5rem;
+        }
+
+        .city-tag {
+            display: inline-block;
+            padding: 0.3rem 1rem;
+            background: linear-gradient(135deg, var(--rose-light), var(--gold-light));
+            border-radius: 50px;
+            font-size: 0.85rem;
+            color: var(--ink);
+            margin-bottom: 1.5rem;
+        }
+
+        .discount-list {
+            margin: 1.5rem 0;
+        }
+
+        .discount-item {
+            padding: 1rem 1.5rem;
+            background: var(--cream);
+            border-radius: 12px;
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            transition: var(--transition-fast);
+            border-left: 3px solid var(--rose);
+        }
+
+        .discount-item:hover {
+            transform: translateX(6px);
+            box-shadow: 0 4px 12px var(--shadow);
+            background: var(--white);
+        }
+
+        .discount-icon {
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        .discount-content {
+            flex: 1;
+        }
+
+        .discount-title {
+            font-family: var(--serif);
+            font-size: 1.05rem;
+            color: var(--ink);
+            margin-bottom: 0.3rem;
+        }
+
+        .discount-desc {
+            font-size: 0.9rem;
+            color: var(--ink-light);
+            line-height: 1.6;
+        }
+
+        .discount-badge {
+            display: inline-block;
+            padding: 0.2rem 0.8rem;
+            background: linear-gradient(135deg, var(--gold), var(--gold-light));
+            border-radius: 50px;
+            font-size: 0.8rem;
+            color: var(--ink);
+            font-weight: 500;
+            margin-top: 0.5rem;
+        }
+
+        .city-nav {
+            display: flex;
+            justify-content: center;
+            gap: 0.8rem;
+            margin-top: 2rem;
+        }
+
+        .city-nav-btn {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            border: 2px solid var(--rose-light);
+            background: var(--paper);
+            cursor: pointer;
+            transition: var(--transition-fast);
+            font-size: 0; /* Hide any accidental text injection */
+        }
+
+        .city-nav-btn.active {
+            background: var(--rose);
+            border-color: var(--rose-deep);
+            transform: scale(1.2);
+        }
+
+        .city-nav-btn:hover:not(.active) {
+            border-color: var(--rose);
+        }
+
+        .city-arrow-btns {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .city-arrow-btn {
+            padding: 0.6rem 1.5rem;
+            border: 2px solid var(--rose-light);
+            border-radius: 50px;
+            background: var(--white);
+            color: var(--ink);
+            font-family: var(--sans);
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: var(--transition-fast);
+        }
+
+        .city-arrow-btn:hover {
+            background: var(--rose-light);
+            border-color: var(--rose);
+            transform: translateY(-2px);
+        }
+
+        .mothers-day-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1.5rem;
+            background: linear-gradient(135deg, var(--rose), var(--gold));
+            color: white;
+            border-radius: 50px;
+            font-family: var(--serif);
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 16px rgba(180, 122, 122, 0.3);
+        }
+
+        @media (max-width: 768px) {
+            .lang-switch {
+                top: 1rem;
+                right: 1rem;
+            }
+
+            .lang-btn {
+                padding: 0.4rem 0.8rem;
+                font-size: 0.8rem;
+            }
+
+            .city-card {
+                padding: 2rem 1.5rem;
+            }
+
+            .city-name {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- ==================== 语言切换 ==================== -->
+    <div class="lang-switch">
+        <button class="lang-btn active" onclick="switchLang('zh')" id="langZh">中文</button>
+        <button class="lang-btn" onclick="switchLang('en')" id="langEn">EN</button>
+    </div>
+
+    <!-- ==================== 侧边导航 ==================== -->
+    <nav class="nav-side" id="navSide">
+        <div class="nav-dot active" data-label="首页" onclick="scrollToSection('hero', this)"></div>
+        <div class="nav-line"></div>
+        <div class="nav-dot" data-label="每日心语" onclick="scrollToSection('dailySection', this)"></div>
+        <div class="nav-line"></div>
+        <div class="nav-dot" data-label="放下牵挂" onclick="scrollToSection('healing', this)"></div>
+        <div class="nav-line"></div>
+        <div class="nav-dot" data-label="重塑自我" onclick="scrollToSection('planning', this)"></div>
+        <div class="nav-line"></div>
+        <div class="nav-dot" data-label="闪耀人生" onclick="scrollToSection('inspiration', this)"></div>
+        <div class="nav-line"></div>
+        <div class="nav-dot" data-label="时光信箱" onclick="scrollToSection('timeCapsule', this)"></div>
+    </nav>
+
+    <!-- ==================== Hero 区域 ==================== -->
+    <section class="hero" id="hero">
+        <!-- 浮动花朵装饰 -->
+        <div class="hero-flower">🌷</div>
+        <div class="hero-flower">🌹</div>
+        <div class="hero-flower">🌸</div>
+        <div class="hero-flower">🌺</div>
+
+        <div class="hero-content">
+            <p class="hero-kicker" data-zh="✦ 致每一个伟大的母亲 ✦" data-en="✦ To Every Great Mother ✦">✦ 致每一个伟大的母亲 ✦</p>
+            <h1 class="hero-title">
+                <span data-zh="悦己时光" data-en="Time for Yourself">悦己时光</span>
+                <span class="highlight" data-zh="为自己而活" data-en="Live for Yourself">为自己而活</span>
+            </h1>
+            <p class="hero-subtitle">
+                <span data-zh="你先是自己，然后才是母亲。" data-en="You are yourself first, then a mother.">你先是自己，然后才是母亲。</span><br>
+                <span data-zh="半生操劳，如今该为自己绽放了。" data-en="After a lifetime of hard work, it's time to bloom for yourself.">半生操劳，如今该<em>为自己</em>绽放了。</span>
+            </p>
+            <button class="hero-btn" onclick="scrollToSection('dailySection', document.querySelector('.nav-dot'))" data-zh="开启悦己之旅 →" data-en="Start Your Journey →">
+                开启悦己之旅 <span class="arrow">→</span>
+            </button>
+        </div>
+
+        <div class="scroll-hint" onclick="scrollToSection('dailySection', document.querySelector('.nav-dot'))">
+            <span data-zh="轻轻向下" data-en="Scroll Gently">轻轻向下</span>
+            <div class="scroll-hint-line"></div>
+        </div>
+    </section>
+
+    <!-- ==================== 每日心语（新功能） ==================== -->
+    <div class="daily-card-section" id="dailySection">
+        <section class="section visible">
+            <div class="daily-card">
+                <div class="daily-label" data-zh="✦ 每日心语 ✦" data-en="✦ Daily Inspiration ✦">✦ 每日心语 ✦</div>
+                <p class="daily-quote" id="dailyQuote" data-zh="加载中..." data-en="Loading...">加载中...</p>
+                <p class="daily-author" id="dailyAuthor"></p>
+                <button class="daily-btn" onclick="refreshDailyQuote()" data-zh="🔄 换一句" data-en="🔄 Change">
+                    🔄 换一句
+                </button>
+            </div>
+        </section>
+    </div>
+
+    <!-- ==================== 母亲节专属优惠（城市轮播） ==================== -->
+    <section class="section mothers-day-section" id="mothersDay">
+        <div class="section-header">
+            <div class="mothers-day-badge">🌹 母亲节特惠 · 悦己好礼 🌹</div>
+            <h2 class="section-title" data-zh="城市优惠攻略" data-en="City Discount Guide">城市优惠攻略</h2>
+            <p class="section-subtitle" data-zh="不同城市的母亲节特别优惠，为自己或妈妈挑一份心意好礼" data-en="Mother's Day special offers in different cities">
+                不同城市的母亲节特别优惠，为自己或妈妈挑一份心意好礼
+            </p>
+        </div>
+
+        <div class="city-carousel" id="cityCarousel">
+            <!-- 城市卡片 1：北京 -->
+            <div class="city-card active" id="city-0">
+                <div class="city-name">
+                    <span class="city-emoji">🏛️</span>
+                    <span data-zh="北京" data-en="Beijing">北京</span>
+                </div>
+                <span class="city-tag" data-zh="母亲节特惠进行中" data-en="Mother's Day Promotion Active">母亲节特惠进行中</span>
+                <div class="discount-list">
+                    <div class="discount-item">
+                        <span class="discount-icon">🌸</span>
+                        <div class="discount-content">
+                            <div class="discount-title" data-zh="故宫博物院 · 母亲节半价" data-en="Forbidden City · Half Price for Moms">故宫博物院 · 母亲节半价</div>
+                            <div class="discount-desc" data-zh="5月11-12日，60岁以上女性凭身份证可享半价优惠（原价60元）" data-en="May 11-12, women over 60 get 50% off with ID">5月11-12日，60岁以上女性凭身份证可享半价优惠（原价60元）</div>
+                            <span class="discount-badge" data-zh="🎫 立省30元" data-en="🎫 Save ￥30">🎫 立省30元</span>
+                        </div>
+                    </div>
+                    <div class="discount-item">
+                        <span class="discount-icon">💆</span>
+                        <div class="discount-content">
+                            <div class="discount-title" data-zh="颐和安缦 · 母亲节套餐" data-en="Aman Summer Palace · Mother's Day Package">颐和安缦 · 母亲节套餐</div>
+                            <div class="discount-desc" data-zh="温泉+按摩+SPA，母亲节当天女性享7折，含精致下午茶" data-en="Hot spring+massage+SPA, 30% off for women, includes afternoon tea">温泉+按摩+SPA，母亲节当天女性享7折，含精致下午茶</div>
+                            <span class="discount-badge" data-zh="💝 7折优惠" data-en="💝 30% Off">💝 7折优惠</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 城市卡片 2：上海 -->
+            <div class="city-card" id="city-1">
+                <div class="city-name">
+                    <span class="city-emoji">🌃</span>
+                    <span data-zh="上海" data-en="Shanghai">上海</span>
+                </div>
+                <span class="city-tag" data-zh="母亲节特惠进行中" data-en="Mother's Day Promotion Active">母亲节特惠进行中</span>
+                <div class="discount-list">
+                    <div class="discount-item">
+                        <span class="discount-icon">🏙️</span>
+                        <div class="discount-content">
+                            <div class="discount-title" data-zh="上海中心 · 母亲节观光优惠" data-en="Shanghai Tower · Mother's Day Viewing Discount">上海中心 · 母亲节观光优惠</div>
+                            <div class="discount-desc" data-zh="5月11-12日，55岁以上女性观景台门票仅需120元（原价180元）" data-en="May 11-12, women over 55 get viewing deck tickets for ￥120">5月11-12日，55岁以上女性观景台门票仅需120元（原价180元）</div>
+                            <span class="discount-badge" data-zh="🎫 立省60元" data-en="🎫 Save ￥60">🎫 立省60元</span>
+                        </div>
+                    </div>
+                    <div class="discount-item">
+                        <span class="discount-icon">🌸</span>
+                        <div class="discount-content">
+                            <div class="discount-title" data-zh="豫园 · 母亲节花展" data-en="Yu Garden · Mother's Day Flower Exhibition">豫园 · 母亲节花展</div>
+                            <div class="discount-desc" data-zh="母亲节期间，豫园花展女性游客享8折，还可领取康乃馨一支" data-en="During Mother's Day, women get 20% off flower exhibition + a carnation">母亲节期间，豫园花展女性游客享8折，还可领取康乃馨一支</div>
+                            <span class="discount-badge" data-zh="💐 8折+赠花" data-en="💐 20% Off + Flower">💐 8折+赠花</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 城市卡片 3：广州 -->
+            <div class="city-card" id="city-2">
+                <div class="city-name">
+                    <span class="city-emoji">🌴</span>
+                    <span data-zh="广州" data-en="Guangzhou">广州</span>
+                </div>
+                <span class="city-tag" data-zh="母亲节特惠进行中" data-en="Mother's Day Promotion Active">母亲节特惠进行中</span>
+                <div class="discount-list">
+                    <div class="discount-item">
+                        <span class="discount-icon">🥢</span>
+                        <div class="discount-content">
+                            <div class="discount-title" data-zh="白天鹅宾馆 · 母亲节早茶" data-en="White Swan Hotel · Mother's Day Dim Sum">白天鹅宾馆 · 母亲节早茶</div>
+                            <div class="discount-desc" data-zh="母亲节当天，60岁以上女性享早茶5折优惠，需提前预约" data-en="On Mother's Day, women over 60 get 50% off dim sum, reservation required">母亲节当天，60岁以上女性享早茶5折优惠，需提前预约</div>
+                            <span class="discount-badge" data-zh="🍵 5折早茶" data-en="🍵 50% Off Dim Sum">🍵 5折早茶</span>
+                        </div>
+                    </div>
+                    <div class="discount-item">
+                        <span class="discount-icon">🌺</span>
+                        <div class="discount-content">
+                            <div class="discount-title" data-zh="华南植物园 · 母亲节免费" data-en="South China Botanical Garden · Free for Moms">华南植物园 · 母亲节免费</div>
+                            <div class="discount-desc" data-zh="5月12日当天，所有女性游客免门票（原价20元）" data-en="May 12, all women get free entry (original ￥20)">5月12日当天，所有女性游客免门票（原价20元）</div>
+                            <span class="discount-badge" data-zh="🎟️ 完全免费" data-en="🎟️ Completely Free">🎟️ 完全免费</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 城市卡片 4：深圳 -->
+            <div class="city-card" id="city-3">
+                <div class="city-name">
+                    <span class="city-emoji">🌊</span>
+                    <span data-zh="深圳" data-en="Shenzhen">深圳</span>
+                </div>
+                <span class="city-tag" data-zh="母亲节特惠进行中" data-en="Mother's Day Promotion Active">母亲节特惠进行中</span>
+                <div class="discount-list">
+                    <div class="discount-item">
+                        <span class="discount-icon">🎡</span>
+                        <div class="discount-content">
+                            <div class="discount-title" data-zh="欢乐谷 · 母亲节免费入园" data-en="Happy Valley · Free Entry for Moms">欢乐谷 · 母亲节免费入园</div>
+                            <div class="discount-desc" data-zh="5月12日，母亲可免费入园，同行家属享7折优惠" data-en="May 12, moms get free entry, accompanying family gets 30% off">5月12日，母亲可免费入园，同行家属享7折优惠</div>
+                            <span class="discount-badge" data-zh="🎢 母亲免费" data-en="🎢 Moms Free">🎢 母亲免费</span>
+                        </div>
+                    </div>
+                    <div class="discount-item">
+                        <span class="discount-icon">🏖️</span>
+                        <div class="discount-content">
+                            <div class="discount-title" data-zh="大梅沙 · 母亲节海边瑜伽" data-en="Dameisha · Mother's Day Beach Yoga">大梅沙 · 母亲节海边瑜伽</div>
+                            <div class="discount-desc" data-zh="母亲节早晨8-10点，专业导师带领免费海边瑜伽，限50位" data-en="Mother's Day 8-10am, free professional beach yoga for 50 moms">母亲节早晨8-10点，专业导师带领免费海边瑜伽，限50位</div>
+                            <span class="discount-badge" data-zh="🧘 免费瑜伽" data-en="🧘 Free Yoga">🧘 免费瑜伽</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 城市卡片 5：成都 -->
+            <div class="city-card" id="city-4">
+                <div class="city-name">
+                    <span class="city-emoji">🐼</span>
+                    <span data-zh="成都" data-en="Chengdu">成都</span>
+                </div>
+                <span class="city-tag" data-zh="母亲节特惠进行中" data-en="Mother's Day Promotion Active">母亲节特惠进行中</span>
+                <div class="discount-list">
+                    <div class="discount-item">
+                        <span class="discount-icon">🐼</span>
+                        <div class="discount-content">
+                            <div class="discount-title" data-zh="大熊猫基地 · 母亲节特惠" data-en="Giant Panda Base · Mother's Day Special">大熊猫基地 · 母亲节特惠</div>
+                            <div class="discount-desc" data-zh="5月11-12日，55岁以上女性门票仅需28元（原价52元），赠送熊猫发箍" data-en="May 11-12, women over 55 pay ￥28 (original ￥52), get panda headband">5月11-12日，55岁以上女性门票仅需28元（原价52元），赠送熊猫发箍</div>
+                            <span class="discount-badge" data-zh="🎫 立省24元" data-en="🎫 Save ￥24">🎫 立省24元</span>
+                        </div>
+                    </div>
+                    <div class="discount-item">
+                        <span class="discount-icon">🍵</span>
+                        <div class="discount-content">
+                            <div class="discount-title" data-zh="宽窄巷子 · 母亲节茶艺" data-en="Kuanzhai Alley · Mother's Day Tea Art">宽窄巷子 · 母亲节茶艺</div>
+                            <div class="discount-desc" data-zh="母亲节当天，女性可免费体验川派茶艺表演，含三道茶品鉴" data-en="Mother's Day, women get free Sichuan tea art show + 3 tea tastings">母亲节当天，女性可免费体验川派茶艺表演，含三道茶品鉴</div>
+                            <span class="discount-badge" data-zh="🍵 免费茶艺" data-en="🍵 Free Tea Art">🍵 免费茶艺</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 城市卡片 6：杭州 -->
+            <div class="city-card" id="city-5">
+                <div class="city-name">
+                    <span class="city-emoji">🌿</span>
+                    <span data-zh="杭州" data-en="Hangzhou">杭州</span>
+                </div>
+                <span class="city-tag" data-zh="母亲节特惠进行中" data-en="Mother's Day Promotion Active">母亲节特惠进行中</span>
+                <div class="discount-list">
+                    <div class="discount-item">
+                        <span class="discount-icon">🏯</span>
+                        <div class="discount-content">
+                            <div class="discount-title" data-zh="西湖 · 母亲节游船优惠" data-en="West Lake · Mother's Day Cruise Deal">西湖 · 母亲节游船优惠</div>
+                            <div class="discount-desc" data-zh="5月11-12日，女性游客游船票仅需30元（原价55元），含龙井茶一杯" data-en="May 11-12, women pay ￥30 for cruise (original ￥55), includes Longjing tea">5月11-12日，女性游客游船票仅需30元（原价55元），含龙井茶一杯</div>
+                            <span class="discount-badge" data-zh="🚢 立省25元" data-en="🚢 Save ￥25">🚢 立省25元</span>
+                        </div>
+                    </div>
+                    <div class="discount-item">
+                        <span class="discount-icon">🌸</span>
+                        <div class="discount-content">
+                            <div class="discount-title" data-zh="灵隐寺 · 母亲节祈福" data-en="Lingyin Temple · Mother's Day Blessing">灵隐寺 · 母亲节祈福</div>
+                            <div class="discount-desc" data-zh="母亲节当天，女性游客可免费领取祈福带一条，参与集体诵经祈福" data-en="Mother's Day, women get free blessing ribbon, join group prayer">母亲节当天，女性游客可免费领取祈福带一条，参与集体诵经祈福</div>
+                            <span class="discount-badge" data-zh="🙏 免费祈福" data-en="🙏 Free Blessing">🙏 免费祈福</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 城市导航点 -->
+        <div class="city-nav" id="cityNav">
+            <div class="city-nav-btn active" onclick="goToCity(0)"></div>
+            <div class="city-nav-btn" onclick="goToCity(1)"></div>
+            <div class="city-nav-btn" onclick="goToCity(2)"></div>
+            <div class="city-nav-btn" onclick="goToCity(3)"></div>
+            <div class="city-nav-btn" onclick="goToCity(4)"></div>
+            <div class="city-nav-btn" onclick="goToCity(5)"></div>
+        </div>
+
+        <!-- 左右箭头 -->
+        <div class="city-arrow-btns">
+            <button class="city-arrow-btn" onclick="prevCity()" data-zh="← 上一城" data-en="← Prev City">← 上一城</button>
+            <button class="city-arrow-btn" onclick="nextCity()" data-zh="下一城 →" data-en="Next City →">下一城 →</button>
+        </div>
+    </section>
+
+    <!-- ==================== 功能区一：放下牵挂 ==================== -->
+    <section class="section" id="healing">
+        <div class="section-header">
+            <span class="section-number">01</span>
+            <h2 class="section-title">放下牵挂</h2>
+            <p class="section-subtitle">
+                那些对孩子的担忧，对未来的焦虑……<br>
+                轻轻写下来，然后让它们随风飘走。
+            </p>
+        </div>
+
+        <div class="healing-wrapper">
+            <div class="healing-flowers">🌷 🌻 🌹</div>
+            <div class="tree-hole-container">
+                <p class="tree-hole-prompt">
+                    🌳 心里有什么放不下的事吗？
+                    <span>写下来，这里会替你好好保管。</span>
+                </p>
+                <textarea
+                    class="worry-input"
+                    id="worryInput"
+                    placeholder="比如：担心孩子工作太辛苦，怕他身体吃不消..."
+                ></textarea>
+                <div class="release-wrapper">
+                    <button class="release-button" id="releaseBtn" onclick="releaseWorry()">
+                        🍃 让它们随风而去
+                    </button>
+                </div>
+
+                <!-- 纸船动画 -->
+                <div class="paper-boat" id="paperBoat">⛵</div>
+
+                <!-- 温暖回应 -->
+                <div class="warm-response" id="warmResponse">
+                    <p class="response-text" id="responseText"></p>
+                    <p class="response-author">—— 悦己时光 · 爱你的自己</p>
+                    <div class="response-petals" id="responsePetals">🌸 💮 🌺</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== 功能区二：重塑自我 ==================== -->
+    <section class="section" id="planning">
+        <div class="section-header">
+            <span class="section-number">02</span>
+            <h2 class="section-title" data-zh="重塑自我" data-en="Rediscover Yourself">重塑自我</h2>
+            <p class="section-subtitle" data-zh="孩子长大了，该为自己活了。选一选你喜欢的事，定制专属退休生活指南。" data-en="Your children have grown up, it's time to live for yourself. Choose what you love, customize your retirement life guide.">
+                孩子长大了，该为自己活了。<br>
+                选一选你喜欢的事，定制专属退休生活指南。
+            </p>
+        </div>
+
+        <div class="planning-wrapper">
+            <div class="planning-intro">
+                <div class="planning-intro-icon">🌱</div>
+                <p class="planning-intro-text">
+                    下半生，是人生的春天。<br>
+                    你值得拥有一份属于自己的美好生活计划。
+                </p>
+            </div>
+
+            <div class="planning-steps">
+                <!-- 步骤1 -->
+                <div class="step active" id="step1">
+                    <h3 class="step-title">🌸 你最想尝试什么？</h3>
+                    <div class="options-grid">
+                        <div class="option-card" onclick="selectOption(this, 'interest', 'art')">
+                            <span class="option-emoji">🎨</span>
+                            <span class="option-text">艺术创作</span>
+                            <span class="option-desc">画画、书法、摄影</span>
+                        </div>
+                        <div class="option-card" onclick="selectOption(this, 'interest', 'sport')">
+                            <span class="option-emoji">🧘</span>
+                            <span class="option-text">身心修养</span>
+                            <span class="option-desc">瑜伽、太极、散步</span>
+                        </div>
+                        <div class="option-card" onclick="selectOption(this, 'interest', 'social')">
+                            <span class="option-emoji">👭</span>
+                            <span class="option-text">社交聚会</span>
+                            <span class="option-desc">跳舞、旅行、茶话会</span>
+                        </div>
+                        <div class="option-card" onclick="selectOption(this, 'interest', 'learning')">
+                            <span class="option-emoji">📚</span>
+                            <span class="option-text">学习成长</span>
+                            <span class="option-desc">学新技能、读书</span>
+                        </div>
+                    </div>
+                    <div class="step-buttons">
+                        <button class="step-button primary" onclick="nextStep()">下一步 →</button>
+                    </div>
+                </div>
+
+                <!-- 步骤2 -->
+                <div class="step" id="step2">
+                    <h3 class="step-title">🌿 你期待的生活节奏是？</h3>
+                    <div class="options-grid">
+                        <div class="option-card" onclick="selectOption(this, 'pace', 'slow')">
+                            <span class="option-emoji">🍵</span>
+                            <span class="option-text">慢节奏</span>
+                            <span class="option-desc">喝茶、发呆、晒太阳</span>
+                        </div>
+                        <div class="option-card" onclick="selectOption(this, 'pace', 'balanced')">
+                            <span class="option-emoji">🌺</span>
+                            <span class="option-text">平衡节奏</span>
+                            <span class="option-desc">动静结合，刚刚好</span>
+                        </div>
+                        <div class="option-card" onclick="selectOption(this, 'pace', 'active')">
+                            <span class="option-emoji">🎉</span>
+                            <span class="option-text">充实节奏</span>
+                            <span class="option-desc">每天都有新活动</span>
+                        </div>
+                    </div>
+                    <div class="step-buttons">
+                        <button class="step-button secondary" onclick="prevStep()">← 上一步</button>
+                        <button class="step-button primary" onclick="generateGuide()">✨ 生成我的生活指南</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 生活指南结果 -->
+            <div class="guide-result" id="guideResult">
+                <div class="guide-card">
+                    <h3 class="guide-title">🌟 你的专属生活指南</h3>
+                    <div class="guide-content" id="guideContent"></div>
+                    <button class="guide-reset" onclick="resetGuide()">🔄 重新选择</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== 功能区三：闪耀人生 ==================== -->
+    <section class="section" id="inspiration">
+        <div class="section-header">
+            <span class="section-number">03</span>
+            <h2 class="section-title" data-zh="闪耀人生" data-en="Shine in Life">闪耀人生</h2>
+            <p class="section-subtitle" data-zh="看看其他同龄女性，如何把日子过成诗。你也可以，而且会更好。" data-en="Look how other women your age live their lives like poetry. You can too, and even better.">
+                看看其他同龄女性，如何把日子过成诗。<br>
+                你也可以，而且会更好。
+            </p>
+        </div>
+
+        <div class="inspiration-wrapper">
+            <div class="stories-grid">
+                <div class="story-card">
+                    <div class="story-banner story-banner-1">🎨</div>
+                    <div class="story-body">
+                        <div class="story-header">
+                            <div class="story-avatar">👩🎨</div>
+                            <div>
+                                <p class="story-name" data-zh="李女士 · 58岁" data-en="Ms. Li · 58 Years Old">李女士 · 58岁</p>
+                                <span class="story-tag" data-zh="退休会计 → 画家" data-en="Retired Accountant → Painter">退休会计 → 画家</span>
+                            </div>
+                        </div>
+                        <p class="story-content" data-zh="退休后我拿起画笔，从零开始学国画。两年后，我的画在学校展出了。孩子说妈妈变得不一样了——眼里有光。其实我只是终于为自己活了一次。" data-en="After retirement, I picked up the paintbrush and learned traditional Chinese painting from scratch. Two years later, my paintings were exhibited at school. My child said mom has become different — there's light in her eyes. Actually, I just finally lived for myself once.">
+                            "退休后我拿起画笔，从零开始学国画。两年后，我的画在学校展出了。孩子说妈妈变得不一样了——眼里有光。其实我只是终于为自己活了一次。"
+                        </p>
+                        <div class="story-quote" data-zh="最好的年龄，就是现在。" data-en="The best age is now.">
+                            "最好的年龄，就是现在。"
+                        </div>
+                    </div>
+                </div>
+
+                <div class="story-card">
+                    <div class="story-banner story-banner-2">🧘</div>
+                    <div class="story-body">
+                        <div class="story-header">
+                            <div class="story-avatar">🧘♀️</div>
+                            <div>
+                                <p class="story-name" data-zh="王老师 · 62岁" data-en="Ms. Wang · 62 Years Old">王老师 · 62岁</p>
+                                <span class="story-tag" data-zh="退休教师 → 瑜伽导师" data-en="Retired Teacher → Yoga Instructor">退休教师 → 瑜伽导师</span>
+                            </div>
+                        </div>
+                        <p class="story-content" data-zh="以前整天操心孩子吃穿，现在我每天练瑜伽、教茶道。放手之后，孩子反而更黏我了。原来最好的爱，不是紧紧抓住，而是各自精彩。" data-en="Used to worry about my child's food and clothing all day. Now I practice yoga and teach tea ceremony every day. After letting go, my child actually became closer to me. Turns out the best love is not holding tight, but both of us shining in our own ways.">
+                            "以前整天操心孩子吃穿，现在我每天练瑜伽、教茶道。放手之后，孩子反而更黏我了。原来最好的爱，不是紧紧抓住，而是各自精彩。"
+                        </p>
+                        <div class="story-quote" data-zh="放手，是更深情的祝福。" data-en="Letting go is the most affectionate blessing.">
+                            "放手，是更深情的祝福。"
+                        </div>
+                    </div>
+                </div>
+
+                <div class="story-card">
+                    <div class="story-banner story-banner-3">🌍</div>
+                    <div class="story-body">
+                        <div class="story-header">
+                            <div class="story-avatar">🌺</div>
+                            <div>
+                                <p class="story-name" data-zh="张医生 · 65岁" data-en="Dr. Zhang · 65 Years Old">张医生 · 65岁</p>
+                                <span class="story-tag" data-zh="退休医生 → 旅行达人" data-en="Retired Doctor → Travel Expert">退休医生 → 旅行达人</span>
+                            </div>
+                        </div>
+                        <p class="story-content" data-zh="我和姐妹们组了'悦己团'，每月一次短途旅行。买花、穿亮色裙子、大声笑——六十岁才是人生的开始。我不再是谁的妈妈，我只是我自己。" data-en="I formed a 'Time for Yourself' group with my sisters, short trips once a month. Buying flowers, wearing bright dresses, laughing out loud — sixty is when life truly begins. I'm no longer someone's mom, I'm just myself.">
+                            "我和姐妹们组了'悦己团'，每月一次短途旅行。买花、穿亮色裙子、大声笑——六十岁才是人生的开始。我不再是谁的妈妈，我只是我自己。"
+                        </p>
+                        <div class="story-quote" data-zh="六十岁，人生才刚刚开始。" data-en="Sixty is when life has just begun.">
+                            "六十岁，人生才刚刚开始。"
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== 新功能：时光信箱 ==================== -->
+    <section class="section" id="timeCapsule">
+        <div class="section-header">
+            <span class="section-number">✦</span>
+            <h2 class="section-title" data-zh="时光信箱" data-en="Time Capsule">时光信箱</h2>
+            <p class="section-subtitle" data-zh="写给一年后的自己……把你的心愿、期盼和爱，装进时光胶囊。" data-en="Write to your future self... Put your wishes, expectations and love into a time capsule.">
+                写给一年后的自己……<br>
+                把你的心愿、期盼和爱，装进时光胶囊。
+            </p>
+        </div>
+
+        <div class="time-capsule-wrapper">
+            <div class="capsule-icon">📮</div>
+            <p class="capsule-prompt" data-zh="亲爱的自己，一年后的你，会是什么样子呢？写一封信，送给未来的自己。" data-en="Dear future self, what will you be like one year from now? Write a letter to your future self.">
+                亲爱的自己，<br>
+                一年后的你，会是什么样子呢？<br>
+                写一封信，送给未来的自己。
+            </p>
+            <textarea
+                class="capsule-input"
+                id="capsuleInput"
+                placeholder="Dear self:\nHope you've learned to dance...\nHope you laugh for yourself every day..."
+            ></textarea>
+            <div>
+                <button class="capsule-btn" onclick="sendCapsule()" data-zh="📌 寄给未来的自己" data-en="📌 Send to Future Self">
+                    💌 寄给未来的自己
+                </button>
+            </div>
+            <div class="capsule-response" id="capsuleResponse">
+                <p style="font-family: var(--serif); font-size: 1.2rem; color: var(--gold); margin-bottom: 0.5rem;" data-zh="📬 信件已投递" data-en="📬 Letter Delivered">📬 信件已投递</p>
+                <p style="color: var(--ink-light); font-size: 0.95rem;" data-zh="一年后的某一天，你会收到这封信。那时候的你，一定比现在更美。" data-en="One day a year from now, you'll receive this letter. By then, you'll be more beautiful than you are now.">
+                    一年后的某一天，你会收到这封信。<br>
+                    那时候的你，一定比现在更美。
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== 页脚 ==================== -->
+    <footer class="footer">
+        <p class="footer-title">悦己时光 · 为自己活</p>
+        <div class="footer-quotes">
+            <p class="footer-quote">"你先是自己，然后才是母亲。"</p>
+            <p class="footer-quote">"你值得拥有 <span class="highlight-text">精彩万分</span> 的人生。"</p>
+            <p class="footer-quote">"从今天起，把爱 <span class="highlight-text">分一点给自己</span>。"</p>
+        </div>
+        <div class="footer-decoration">❀ ❁ ❀ ❁ ❀</div>
+    </footer>
+
+    <!-- ==================== JavaScript ==================== -->
+    <script>
+        // ================================================================
+        // 1. 每日心语
+        // ================================================================
+        const dailyQuotes = [
+            { text: "你先是自己，然后才是母亲。你的人生，不需要为任何人而活。", author: "悦己时光" },
+            { text: "半生操劳，如今该为自己绽放了。你不是迟到了，只是刚好现在。", author: "悦己时光" },
+            { text: "放手不是不爱，而是更深情的祝福。相信他，也相信你自己。", author: "悦己时光" },
+            { text: "皱纹是时光写给你的情书，白发是岁月赠予的勋章。", author: "悦己时光" },
+            { text: "你曾经是女儿，后来是母亲，现在——请你做回你自己。", author: "悦己时光" },
+            { text: "不必活成别人期待的样子，你只需要活成自己喜欢的样子。", author: "悦己时光" },
+            { text: "爱孩子最好的方式，是先学会爱自己。你快乐，家才快乐。", author: "悦己时光" },
+            { text: "六十岁，才是人生的黄金时代。有钱、有闲、有自由。", author: "悦己时光" },
+            { text: "买花给自己，穿喜欢的颜色，去想去的地方——你配得上一切美好。", author: "悦己时光" },
+            { text: "不要把全部的爱都给了别人，记得留一点给自己。", author: "悦己时光" }
+        ];
+
+        // English daily quotes
+        const dailyQuotesEn = [
+            { text: "You are yourself first, then a mother. Your life doesn't need to live for anyone else.", author: "Time for Yourself" },
+            { text: "After a lifetime of hard work, it's time to bloom for yourself. You're not late, you're just in time.", author: "Time for Yourself" },
+            { text: "Letting go is not stopping loving, but blessing more deeply. Trust him, and trust yourself.", author: "Time for Yourself" },
+            { text: "Wrinkles are love letters written to you by time. White hair is a medal given by years.", author: "Time for Yourself" },
+            { text: "You were once a daughter, then a mother. Now — please be yourself again.", author: "Time for Yourself" },
+            { text: "No need to live as others expect. You only need to live as who you like.", author: "Time for Yourself" },
+            { text: "The best way to love your children is to learn to love yourself first. Your happiness makes the family happy.", author: "Time for Yourself" },
+            { text: "Sixty is the golden age of life. With money, time, and freedom.", author: "Time for Yourself" },
+            { text: "Buy flowers for yourself, wear your favorite colors, go where you want — you deserve all the beauty.", author: "Time for Yourself" },
+            { text: "Don't give all your love to others. Remember to keep some for yourself.", author: "Time for Yourself" }
+        ];
+
+        function refreshDailyQuote() {
+            const quoteEl = document.getElementById('dailyQuote');
+            const authorEl = document.getElementById('dailyAuthor');
+            
+            // 根据当前语言选择语录数组
+            const quotes = currentLang === 'en' ? dailyQuotesEn : dailyQuotes;
+            const random = quotes[Math.floor(Math.random() * quotes.length)];
+
+            quoteEl.classList.add('fade');
+            setTimeout(() => {
+                quoteEl.textContent = '「' + random.text + '」';
+                authorEl.textContent = '—— ' + random.author;
+                quoteEl.classList.remove('fade');
+            }, 300);
+        }
+
+        // 初始化每日心语
+        window.addEventListener('load', () => {
+            refreshDailyQuote();
+        });
+
+        // ================================================================
+        // 2. 放下牵挂
+        // ================================================================
+        const warmResponses = [
+            "亲爱的，孩子有孩子的路。你辛苦了大半辈子，该为自己活了。相信他，就像相信当年的自己。🌸",
+            "担心是爱的变形，但过度的担心是捆绑。放手，不是不爱，而是更深情的祝福。🍃",
+            "你把孩子培养得这么好，他一定可以照顾好自己。现在，轮到照顾你自己了。💐",
+            "当你开始爱自己，孩子会为你骄傲。你快乐，才是给他最好的礼物。🌺",
+            "闭上眼睛，深呼吸。想象那些担忧像树叶一样，随风飘走。你值得安宁。🍵",
+            "课题分离：孩子的问题是孩子的，你的问题是你的。不要拿孩子的课题来折磨自己。📚",
+            "你不是孩子的保姆，你是独立的女性。你有权利追求自己的精彩。✨",
+            "担心不会让坏事情变好，但会让好心情变糟。放下牵挂，享受当下。🌿",
+            "每一个母亲都曾是少女。那个少女还在你心里，她等了你很久了。💗",
+            "放下不是放弃，而是把攥紧的手松开，让阳光照进来。☀️"
+        ];
+
+        // English warm responses
+        const warmResponsesEn = [
+            "Dear, children have their own paths. You've worked hard for most of your life — it's time to live for yourself. Trust him, just as you trusted yourself back then. 🌸",
+            "Worry is love in disguise, but over-worrying is a chain. Letting go is not stopping loving, but blessing more deeply. 🍃",
+            "You've raised your child so well — he can definitely take care of himself. Now, it's your turn to take care of yourself. 💐",
+            "When you start loving yourself, your children will be proud of you. Your happiness is the best gift to them. 🌺",
+            "Close your eyes, breathe deeply. Imagine those worries drifting away like leaves in the wind. You deserve peace. 🍵",
+            "Separation of tasks: your child's problems are theirs, your problems are yours. Don't torture yourself with your child's tasks. 📚",
+            "You are not your child's nanny — you are an independent woman. You have the right to pursue your own wonderful life. ✨",
+            "Worry won't make bad things better, but it will make good moods worse. Let go of worries, enjoy the present. 🌿",
+            "Every mother was once a young girl. That girl is still in your heart, waiting for you for so long. 💗",
+            "Letting go is not giving up — it's opening your clasped hands and letting the sunshine in. ☀️"
+        ];
+
+        function releaseWorry() {
+            const worryInput = document.getElementById('worryInput');
+            const warmResponse = document.getElementById('warmResponse');
+            const responseText = document.getElementById('responseText');
+            const paperBoat = document.getElementById('paperBoat');
+            const releaseBtn = document.getElementById('releaseBtn');
+            const responsePetals = document.getElementById('responsePetals');
+
+            if (!worryInput.value.trim()) {
+                alert(currentLang === 'en' ? 'Write something, even just one sentence.' : '写点什么吧，哪怕只是一句话。');
+                return;
+            }
+
+            // 禁用按钮，防重复点击
+            releaseBtn.disabled = true;
+            releaseBtn.textContent = currentLang === 'en' ? '🍃 Drifting away...' : '🍃 正在飘走...';
+
+            // 清空输入
+            worryInput.value = '';
+
+            // 纸船动画
+            paperBoat.classList.add('sail');
+
+            // 延迟后显示回应
+            setTimeout(() => {
+                // 根据当前语言选择回应数组
+                const responses = currentLang === 'en' ? warmResponsesEn : warmResponses;
+                const randomResponse = responses[Math.floor(Math.random() * responses.length)];
+                
+                responseText.textContent = randomResponse;
+                warmResponse.classList.add('show');
+
+                // 花瓣出现
+                setTimeout(() => {
+                    responsePetals.classList.add('show');
+                }, 200);
+
+                // 恢复按钮
+                releaseBtn.disabled = false;
+                releaseBtn.textContent = currentLang === 'en' ? '🍃 Let Them Drift Away' : '🍃 让它们随风而去';
+                paperBoat.classList.remove('sail');
+            }, 1500);
+
+            // 8秒后自动隐藏回应
+            setTimeout(() => {
+                warmResponse.classList.remove('show');
+                responsePetals.classList.remove('show');
+            }, 10000);
+        }
+
+        // ================================================================
+        // 3. 重塑自我
+        // ================================================================
+        let currentStep = 1;
+        let selectedInterest = '';
+        let selectedPace = '';
+
+        function selectOption(card, type, value) {
+            const parent = card.parentElement;
+            const siblings = parent.querySelectorAll('.option-card');
+            siblings.forEach(s => s.classList.remove('selected'));
+            card.classList.add('selected');
+
+            if (type === 'interest') {
+                selectedInterest = value;
+            } else if (type === 'pace') {
+                selectedPace = value;
+            }
+        }
+
+        function nextStep() {
+            if (!selectedInterest) {
+                alert('请先选择一个你喜欢的休闲方式哦～');
+                return;
+            }
+            document.getElementById('step' + currentStep).classList.remove('active');
+            currentStep++;
+            document.getElementById('step' + currentStep).classList.add('active');
+        }
+
+        function prevStep() {
+            document.getElementById('step' + currentStep).classList.remove('active');
+            currentStep--;
+            document.getElementById('step' + currentStep).classList.add('active');
+        }
+
+        function generateGuide() {
+            if (!selectedPace) {
+                alert('请先选择你期待的生活节奏哦～');
+                return;
+            }
+
+            const guides = {
+                'art-slow': [
+                    '🌸 早晨，泡一壶花茶，坐在窗边画水彩',
+                    '📚 午后，读一本喜欢的小说，阳光洒在书页上',
+                    '🎨 每周三次去老年大学学国画，从梅兰竹菊开始',
+                    '🍵 傍晚和姐妹们在茶馆聊天，分享彼此的画作',
+                    '✨ 周末去公园写生，把四季的变化都记录下来'
+                ],
+                'art-balanced': [
+                    '🌸 早晨练半小时书法，让心静下来',
+                    '🎨 上午去社区艺术班学插花或剪纸',
+                    '📚 下午参观画展或手工艺品展，给自己充电',
+                    '🍵 每周两次和画友们一起创作、交流心得',
+                    '✨ 周末把自己的作品裱起来，把家装饰成画廊'
+                ],
+                'art-active': [
+                    '🌸 早晨去公园画日出，用画笔迎接每一天',
+                    '🎨 参加艺术工作坊，每月学一种新技法',
+                    '📚 下午在社区教其他妈妈画画，分享快乐',
+                    '🎉 每周组织一次艺术沙龙，认识新朋友',
+                    '🎨 每月举办一次小型画展，邀请亲友来参观'
+                ],
+                'sport-slow': [
+                    '🧘 早晨在床上做10分钟拉伸，慢慢唤醒身体',
+                    '🚶 上午去公园散步，看看花、听听鸟叫',
+                    '📖 午后坐在摇椅上读书，困了就打个盹',
+                    '🍵 傍晚泡个热水澡，放点轻柔的音乐',
+                    '🌙 晚上十点前上床，睡个美容觉'
+                ],
+                'sport-balanced': [
+                    '🧘 早晨练30分钟太极或瑜伽，舒展身心',
+                    '🚶 上午快走40分钟，保持心肺活力',
+                    '💪 下午做轻度力量训练，保持肌肉弹性',
+                    '🏊 每周三次游泳或跳舞，让身体更柔韧',
+                    '🎉 周末和姐妹们一起爬山，呼吸新鲜空气'
+                ],
+                'sport-active': [
+                    '🏃 早晨慢跑5公里，感受晨风拂面',
+                    '💪 上午去健身房或上健身操课',
+                    '🏊 下午游泳或打羽毛球，运动量刚刚好',
+                    '🎉 每周参加徒步或骑行活动，探索周边',
+                    '🌍 每月挑战一个新运动，保持生活新鲜感'
+                ],
+                'social-slow': [
+                    '🍵 早晨约邻居在院子里喝茶，聊聊家常',
+                    '🌸 上午去公园和姐妹们散步，晒晒太阳',
+                    '📞 午后给孩子打个电话，只是聊聊天',
+                    '🎭 每周和朋友们看一场戏或听一场音乐会',
+                    '📖 周末邀请老友来家里，一起回忆青春'
+                ],
+                'social-balanced': [
+                    '👭 早晨去社区活动中心，和朋友们打招呼',
+                    '🎨 参加兴趣小组——唱歌、跳舞、做手工',
+                    '🍽️ 和姐妹们一起做饭、聚餐，分享拿手菜',
+                    '🎭 每周参加社区组织的文化活动',
+                    '✈️ 每月和姐妹们来一次短途旅行'
+                ],
+                'social-active': [
+                    '👭 早晨组织一场姐妹早餐会，热热闹闹',
+                    '🎤 参加社区志愿服务，发挥余热帮助他人',
+                    '🎤 在老年大学教大家唱歌或跳广场舞',
+                    '🎭 每周策划一个主题活动——茶话会、舞会、读书会',
+                    '🌍 每季度组织一次长途旅行，看遍大好河山'
+                ],
+                'learning-slow': [
+                    '📚 早晨读30页喜欢的书，让心灵去旅行',
+                    '✍️ 上午练字或写日记，记录生活中的小确幸',
+                    '🎧 午后听一节线上课——养生、摄影、烹饪',
+                    '📖 每周去图书馆借几本感兴趣的书',
+                    '🌸 周末参加读书会或文化讲座，和同好交流'
+                ],
+                'learning-balanced': [
+                    '📚 每天学1小时新知识——手机技巧、外语、摄影',
+                    '✍️ 上午写写博客或朋友圈，分享生活感悟',
+                    '🎧 下午去老年大学上课，认识新同学',
+                    '📱 每周学会一个新APP或新技能',
+                    '🎓 三个月完成一个课程，给自己一个里程碑'
+                ],
+                'learning-active': [
+                    '🎓 早晨去老年大学上两节课，充实头脑',
+                    '💻 学习视频剪辑，记录生活的精彩瞬间',
+                    '📱 下午研究新科技——无人机航拍、VR体验',
+                    '🎤 每周做一次分享，把知识传递给更多人',
+                    '🌍 每月掌握一个新技能，并教给身边的人'
+                ]
+            };
+
+            const key = selectedInterest + '-' + selectedPace;
+            const guide = guides[key] || guides['art-slow'];
+
+            const guideContent = document.getElementById('guideContent');
+            const guideResult = document.getElementById('guideResult');
+
+            let html = '';
+            guide.forEach((item, index) => {
+                html += '<div class="guide-item">' +
+                    '<span class="guide-item-number">' + (index + 1) + '</span>' +
+                    '<span class="guide-item-text">' + item + '</span>' +
+                    '</div>';
+            });
+
+            guideContent.innerHTML = html;
+            guideResult.classList.add('show');
+            guideResult.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        function resetGuide() {
+            document.getElementById('guideResult').classList.remove('show');
+            selectedInterest = '';
+            selectedPace = '';
+            currentStep = 1;
+            document.getElementById('step2').classList.remove('active');
+            document.getElementById('step1').classList.add('active');
+
+            // 清除选中样式
+            document.querySelectorAll('.option-card').forEach(c => c.classList.remove('selected'));
+        }
+
+        // ================================================================
+        // 4. 时光信箱
+        // ================================================================
+        function sendCapsule() {
+            const input = document.getElementById('capsuleInput');
+            const response = document.getElementById('capsuleResponse');
+
+            if (!input.value.trim()) {
+                alert('写点什么呢？哪怕只是一句祝福的话。');
+                return;
+            }
+
+            input.value = '';
+            response.classList.add('show');
+            response.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        // ================================================================
+        // 5. 导航与滚动
+        // ================================================================
+        function scrollToSection(id, dotEl) {
+            const section = document.getElementById(id);
+            if (section) {
+                section.scrollIntoView({ behavior: 'smooth' });
+            }
+
+            if (dotEl) {
+                document.querySelectorAll('.nav-dot').forEach(d => d.classList.remove('active'));
+                dotEl.classList.add('active');
+            }
+        }
+
+        // 滚动监听：更新侧边导航 & 渐入动画
+        const observerOptions = {
+            threshold: 0.2,
+            rootMargin: '-80px 0px'
+        };
+
+        const sectionObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        // 监听所有 section
+        document.querySelectorAll('.section').forEach(section => {
+            sectionObserver.observe(section);
+        });
+
+        // 侧边导航高亮
+        const navDots = document.querySelectorAll('.nav-dot');
+        const sections = ['hero', 'dailySection', 'healing', 'planning', 'inspiration', 'timeCapsule'];
+
+        const scrollObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const index = sections.indexOf(entry.target.id);
+                    if (index !== -1 && navDots[index]) {
+                        navDots.forEach(d => d.classList.remove('active'));
+                        navDots[index].classList.add('active');
+                    }
+                }
+            });
+        }, { threshold: 0.3 });
+
+        sections.forEach(id => {
+            const el = document.getElementById(id);
+            if (el) scrollObserver.observe(el);
+        });
+
+        // ================================================================
+        // 6. 键盘快捷键：按 Enter 释放担忧（在输入框外）
+        // ================================================================
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' && !e.target.closest('textarea')) {
+                // 不自动触发，避免误触
+            }
+        });
+
+        console.log('🌸 悦己时光 · 创意升级版已加载');
+        console.log('💝 愿你为自己而活，活成自己喜欢的样子');
+
+        // ================================================================
+        // 7. 母亲节城市轮播
+        // ================================================================
+        let currentCity = 0;
+        const totalCities = 6;
+        let autoPlayTimer = null;
+
+        function goToCity(index) {
+            if (index < 0 || index >= totalCities) return;
+
+            // 隐藏当前城市卡片
+            document.querySelectorAll('.city-card').forEach(card => {
+                card.classList.remove('active');
+            });
+
+            // 更新导航点
+            document.querySelectorAll('.city-nav-btn').forEach((btn, i) => {
+                if (i === index) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+
+            // 显示目标城市卡片
+            const targetCard = document.getElementById('city-' + index);
+            if (targetCard) {
+                targetCard.classList.add('active');
+            }
+
+            currentCity = index;
+            resetAutoPlay();
+        }
+
+        function nextCity() {
+            const next = (currentCity + 1) % totalCities;
+            goToCity(next);
+        }
+
+        function prevCity() {
+            const prev = (currentCity - 1 + totalCities) % totalCities;
+            goToCity(prev);
+        }
+
+        // 自动轮播
+        function startAutoPlay() {
+            autoPlayTimer = setInterval(nextCity, 5000); // 每5秒切换
+        }
+
+        function resetAutoPlay() {
+            if (autoPlayTimer) {
+                clearInterval(autoPlayTimer);
+            }
+            startAutoPlay();
+        }
+
+        // 启动自动轮播
+        startAutoPlay();
+
+        // 鼠标悬停时暂停自动轮播
+        const cityCarousel = document.getElementById('cityCarousel');
+        if (cityCarousel) {
+            cityCarousel.addEventListener('mouseenter', () => {
+                if (autoPlayTimer) {
+                    clearInterval(autoPlayTimer);
+                    autoPlayTimer = null;
+                }
+            });
+
+            cityCarousel.addEventListener('mouseleave', () => {
+                startAutoPlay();
+            });
+        }
+
+        // ================================================================
+        // 8. 中英语言切换（改进版）
+        // ================================================================
+        let currentLang = 'zh';
+
+        // 双语字典 - 用于切换文本
+        const langMap = {
+            // 导航
+            '首页': 'Home',
+            '功能': 'Features',
+            '故事': 'Stories',
+            '关于': 'About',
+
+            // hero 区域
+            '悦己时光': 'Time for Yourself',
+            '· 为自己活，最美丽': '· Living for Yourself is Most Beautiful',
+            '从前为孩子活，现在为自己活': 'Once lived for children, now live for yourself',
+            '开始悦己之旅': 'Start Your Journey',
+
+            // 每日心语
+            '每日心语': 'Daily Inspiration',
+            '💝 换一句': "💝 Change",
+
+            // 母亲节优惠
+            '🌹 母亲节特惠 · 悦己好礼 🌹': '🌹 Mother\'s Day Special · Gifts for Yourself 🌹',
+            '城市优惠攻略': 'City Discount Guide',
+            '不同城市的母亲节特别优惠，为自己或妈妈挑一份心意好礼': 'Mother\'s Day special offers in different cities - pick a gift for yourself or your mom',
+            '母亲节特惠进行中': 'Mother\'s Day Promotion Active',
+
+            // 功能区一
+            '放下牵挂': 'Let Go of Worries',
+            '那些对孩子的担忧，对未来的焦虑……轻轻地写下来，然后让它们随风飘走。': 'Those worries about children, anxieties about the future... Gently write them down, then let them drift away with the wind.',
+            '心里有什么放不下的事吗？': 'Is there something on your mind that you can\'t let go?',
+            '写下来，这里会替你好好保管。': 'Write it down, we\'ll keep it safe for you.',
+            '比如：担心孩子工作太辛苦，怕他身体吃不消...': 'e.g.: Worried about your child working too hard, afraid they\'ll wear themselves out...',
+            '🍃 让它们随风而去': '🍃 Let Them Drift Away',
+
+            // 功能区二
+            '重塑自我': 'Rediscover Yourself',
+            '孩子长大了，该为自己活了。选一选你喜欢的事，定制专属退休生活指南。': 'Your children have grown up, it\'s time to live for yourself. Choose what you love, customize your retirement life guide.',
+            '下半生，是人生的春天。你值得拥有一份属于自己的美好生活计划。': 'The second half of life is springtime. You deserve a beautiful life plan of your own.',
+            '你最想尝试什么？': 'What would you most like to try?',
+            '艺术创作': 'Artistic Creation',
+            '画画、书法、摄影': 'Painting, Calligraphy, Photography',
+            '身心修养': 'Mind & Body',
+            '瑜伽、太极、散步': 'Yoga, Tai Chi, Walking',
+            '社交聚会': 'Social Gathering',
+            '跳舞、旅行、茶话会': 'Dancing, Travel, Tea Parties',
+            '学习成长': 'Learning & Growth',
+            '学新技能、读书': 'Learn New Skills, Read Books',
+            '下一步 →': 'Next Step →',
+            '你期待的生活节奏是？': 'What life pace do you look forward to?',
+            '慢节奏': 'Slow Pace',
+            '喝茶、发呆、晒太阳': 'Tea, Daydreaming, Sunbathing',
+            '均衡节奏': 'Balanced Pace',
+            '喝茶、发呆、晒太阳': 'Tea, Daydreaming, Sunbathing',
+            '充实节奏': 'Full Pace',
+            '学习、社交、运动都不误': 'Learning, socializing, exercise - all covered',
+            '动静结合，刚刚好': 'Balance of activity and rest, just right',
+            '每天都有新活动': 'New activities every day',
+            '✨ 生成我的生活指南': '✨ Generate My Life Guide',
+            '🔄 重新选择': '🔄 Reselect',
+            '🌟 你的专属生活指南': '🌟 Your Personal Life Guide',
+
+            // 功能区三
+            '闪耀人生': 'Shine in Life',
+            '谁说上了年纪就不能发光？': 'Who says you can\'t shine when you\'re older?',
+            '看看这些姐姐阿姨们，如何活出自己的精彩。': 'Look how these sisters and aunts live their wonderful lives.',
+            '退休后开始学画画，现在已举办过2次个人画展。她说："60岁，才是我人生的开始。"': 'Started learning painting after retirement, now held 2 solo exhibitions. She says: "60 is when my life truly begins."',
+            '退休教师，如今是社区舞蹈队队长，带着30多位姐妹跳舞健身。': 'Retired teacher, now leads a 30+ member dance team in the community.',
+            '退休医生，退休后自学视频剪辑，如今在短视频平台有50万粉丝。': 'Retired doctor, self-taught video editing, now has 500K followers on short video platform.',
+
+            // 功能区四
+            '时光信箱': 'Time Capsule',
+            '给未来的自己写封信吧': 'Write a letter to your future self',
+            '等日子久了，再打开看看，一定会感动当时的自己。': 'When time passes, open it again - you\'ll definitely be moved by your past self.',
+            '亲爱的，你好呀': 'Dear, hello',
+            '此刻的你，是不是已经开始了想要的生活？': 'Are you already living the life you wanted at this moment?',
+            '记得一定要好好爱自己。': 'Remember to love yourself well.',
+            '给1年后的自己': 'To Myself in 1 Year',
+            '给3年后的自己': 'To Myself in 3 Years',
+            '给5年后的自己': 'To Myself in 5 Years',
+
+            // 页脚
+            '悦己时光 · 为自己活': 'Time for Yourself · Live for Yourself',
+            '从前为孩子活，现在为自己活。': 'Once lived for children, now live for yourself.',
+            '产品': 'Product',
+            '故事': 'Stories',
+            '关于我们': 'About Us',
+            '联系我们': 'Contact Us',
+            '隐私政策': 'Privacy Policy',
+            '使用条款': 'Terms of Use',
+            '用 ❤ 制作，为每一位勇敢爱自己的你。': 'Made with ❤, for every one of you who bravely loves yourself.',
+
+            // 更多翻译...
+        };
+
+        function switchLang(lang) {
+            if (lang === currentLang) return;
+
+            currentLang = lang;
+
+            // 更新按钮状态
+            document.getElementById('langZh').classList.toggle('active', lang === 'zh');
+            document.getElementById('langEn').classList.toggle('active', lang === 'en');
+
+            if (lang === 'en') {
+                // 切换到英文：优先使用 data-* 属性，回退到 langMap 字典
+                document.querySelectorAll('*').forEach(el => {
+                    // 方法1：检查 data-zh 和 data-en 属性（更健壮）
+                    if (el.dataset.zh && el.dataset.en) {
+                        // 跳过没有文本内容的布局元素（如导航点小圆点）
+                        // 这些元素的 data-zh/data-en 不是用于文本内容
+                        if (!el.textContent || el.textContent.trim() === '') {
+                            return;
+                        }
+                        // 保存原始中文（如果还没保存）
+                        if (!el.dataset.originalZh) {
+                            el.dataset.originalZh = el.dataset.zh;
+                        }
+                        // 切换到英文
+                        el.textContent = el.dataset.en;
+                    } else {
+                        // 方法2：回退到 langMap 字典（处理没有 data-* 属性的元素）
+                        el.childNodes.forEach(node => {
+                            if (node.nodeType === Node.TEXT_NODE) {
+                                const text = node.textContent.trim();
+                                if (text && langMap[text]) {
+                                    node.textContent = node.textContent.replace(text, langMap[text]);
+                                }
+                            }
+                        });
+                    }
+
+                    // 处理 title 和 placeholder 属性
+                    if (el.title && langMap[el.title]) {
+                        el.title = langMap[el.title];
+                    }
+                    if (el.placeholder && langMap[el.placeholder]) {
+                        el.placeholder = langMap[el.placeholder];
+                    }
+                });
+            } else {
+                // 切换到中文：恢复原始中文文本
+                document.querySelectorAll('[data-zh]').forEach(el => {
+                    if (el.dataset.zh) {
+                        el.textContent = el.dataset.zh;
+                    }
+                });
+                // 对于使用 langMap 的元素，刷新页面是最简单可靠的方法
+                // 因为 langMap 翻译是不可逆的（无法直接恢复原文）
+                location.reload();
+            }
+
+            console.log('🌐 Language switched to: ' + (lang === 'zh' ? '中文' : 'English'));
+        }
+    </script>
+</body>
+</html>
